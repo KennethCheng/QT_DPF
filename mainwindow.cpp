@@ -3,6 +3,7 @@
 
 #define ARM_PLF
 //#define TEST_BTN
+#define DISABLE_CURSOR
 #define Version  "Version: V1.0  2010.0531"
 
 #define MUSIC_UP_TIMER 1000
@@ -82,7 +83,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
     setWindowFlags(Qt::FramelessWindowHint );
 #ifdef ARM_PLF
+    #ifndef DISABLE_CURSOR
     QApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
+    #endif
     /*MusicPath = MemCardPath;
     MoviePath = MemCardPath;
     BG_MusicPath = MemCard_BG_MusicPath;*/
@@ -196,7 +199,9 @@ void MainWindow::CompVisionCtrl(int StackPage)
         ui->Btn_ZoomOut->setVisible(false);
         ui->Btn_PicasaStop->setVisible(false);
 #ifdef ARM_PLF
+#ifndef DISABLE_CURSOR
         QApplication::setOverrideCursor(QCursor(Qt::BlankCursor));
+#endif
 #endif
         break;
     case PhotoStack :
@@ -1565,7 +1570,9 @@ void MainWindow::on_Btn_Wireless_clicked()
                this, SLOT(WirelessFinished()));
 
 #ifdef ARM_PLF
-    WirelessProc->start("/opt/Qtopia/demos/wireless");
+    //WirelessProc->start("/opt/Qtopia/demos/wireless");
+    WirelessProc->start("/opt/Qtopia/demos/fluidlauncher");
+    //WirelessProc->start("./fluidlauncher");
 #else
     WirelessProc->start("./wireless");
 #endif
